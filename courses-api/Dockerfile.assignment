@@ -1,0 +1,39 @@
+# ---- Builder ----
+FROM golang:1.22-alpine AS builder
+WORKDIR /src
+
+RUN apk add --no-cache git ca-certificates
+
+# Copiar primero go.mod/sum para mejor caché
+COPY courses-api/go.mod courses-api/go.sum ./
+RUN go mod download
+
+# Copiar el código de la API
+COPY courses-api/ ./
+
+# Compilar binario estático para Linux amd64
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /out/courses-api ./main.go
+
+# ---- Runtime ----
+FROM alpine:3.20
+WORKDIR /app
+
+# Crear usuario no root
+RUN addgroup -S app && adduser -S app -G app
+USER app
+
+# Variables por defecto (sobreescribir en Compose)
+ENV APP_ENV=qa \
+    LOG_LEVEL=info \
+    MONGO_URI=mongodb://mongo:27017 \
+    MONGO_DB=courses
+
+# Copiar binario
+COPY --from=builder /out/courses-api /app/courses-api
+
+# Healthcheck: si tu API no expone /health, podés ajustar esto a "/" o removerlo
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -qO- http://localhost:8080/health || exit 1
+
+EXPOSE 8080
+ENTRYPOINT ["/app/courses-api"]

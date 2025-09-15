@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #ededed;
+    color: #222;
+}
+
+.course-details-outer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+}
+
+.course-details-main {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.course-details-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+    padding: 48px 40px 36px 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.course-info-block {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 32px;
+}
+.course-info-block h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #222;
+}
+.course-info-block p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #444;
+}
+.course-info-block strong {
+    color: #222;
+    font-weight: 500;
+}
+.course-actions-block {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.enroll-button, .files-button, .comments-button {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 120px;
+}
+.enroll-button:hover, .files-button:hover, .comments-button:hover {
+    background: #444;
+}
+.full-message {
+    color: #b00;
+    font-weight: 500;
+    margin-right: 16px;
+}
+.back-button {
+    background: #fff;
+    color: #222;
+    border: 1.5px solid #222;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 0;
+    margin-top: 0;
+    transition: background 0.2s, color 0.2s;
+    position: absolute;
+    top: 80px;
+    left: 40px;
+}
+.back-button:hover {
+    background: #444;
+    color: #fff;
+}
+
+.course-image {
+    max-width: 75%;
+    height: auto;
+    border-radius: 10px;
+    margin: 20px 0;
+}

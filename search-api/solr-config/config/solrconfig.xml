@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <!-- Versión de Lucene que usa SolR -->
+    <luceneMatchVersion>8.11.0</luceneMatchVersion>
+
+    <!-- Manejador de consultas para búsquedas en el índice -->
+    <requestHandler name="/select" class="solr.SearchHandler">
+        <lst name="defaults">
+            <str name="rows">10</str>         <!-- Número de resultados por defecto -->
+            <str name="wt">json</str>         <!-- Formato de respuesta en JSON -->
+        </lst>
+    </requestHandler>
+
+    <!-- Manejador de solicitudes de actualización -->
+    <updateRequestHandler name="/update" class="solr.UpdateRequestHandler"/>
+
+    <!-- Cadena de procesadores para manejar actualizaciones de documentos -->
+    <updateRequestProcessorChain name="default">
+        <processor class="solr.RunUpdateProcessorFactory" />
+        <processor class="solr.CommitWithinProcessorFactory">
+            <int name="commitWithin">10000</int> <!-- Realiza commit dentro de 10 segundos -->
+        </processor>
+        <processor class="solr.LogUpdateProcessorFactory" />
+        <processor class="solr.DistributedUpdateProcessorFactory" />
+        <processor class="solr.RunUpdateProcessorFactory" />
+    </updateRequestProcessorChain>
+
+    <!-- Manejador para actualizaciones JSON, configurado con confirmación rápida -->
+    <requestHandler name="/update/json/docs" class="solr.UpdateRequestHandler">
+        <lst name="defaults">
+            <str name="commitWithin">10000</str> <!-- Realiza commit dentro de 10 segundos -->
+        </lst>
+    </requestHandler>
+
+    <!-- Configuración de almacenamiento y caché para optimizar rendimiento -->
+    <directoryFactory name="DirectoryFactory" class="solr.StandardDirectoryFactory"/>
+</config>

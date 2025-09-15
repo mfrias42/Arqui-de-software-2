@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #ededed;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.toolbar {
+    width: 100vw;
+    background: #222;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 180px 0 40px;
+    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.toolbar-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.toolbar-nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+.toolbar-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: border 0.2s;
+}
+.toolbar-link:hover {
+    border-bottom: 2px solid #fff;
+}
+.toolbar-user {
+    font-size: 1rem;
+    margin-right: 18px;
+    color: #ccc;
+}
+.toolbar-logout {
+    background: #fff;
+    color: #222;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-left: 16px;
+    margin-right: 60px;
+    max-width: 220px;
+    min-width: 120px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    word-break: break-word;
+    display: inline-block;
+    text-align: center;
+}
+.toolbar-logout:hover {
+    background: #444;
+    color: #fff;
+}
+@media (max-width: 700px) {
+  .toolbar {
+    padding: 0 16px 0 10px;
+  }
+  .toolbar-title {
+    font-size: 1.1rem;
+  }
+  .toolbar-logout {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    max-width: 110px;
+    margin-right: 4px;
+  }
+}
+
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 100px;
+}
+
+.error-message {
+    color: #d32f2f;
+}
+
+.home-outer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-section {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+    padding: 48px 40px 36px 40px;
+    margin-bottom: 36px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.welcome-section h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #222;
+    text-align: center;
+}
+.description {
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 32px;
+    text-align: center;
+}
+.quick-access-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-bottom: 0;
+}
+.quick-card {
+    background: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 28px 32px;
+    min-width: 180px;
+    max-width: 260px;
+    flex: 1 1 220px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.2s;
+    text-align: center;
+}
+.quick-card:hover {
+    background: #e0e0e0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.quick-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.15rem;
+    color: #222;
+}
+.quick-card p {
+    margin: 0;
+    color: #555;
+    font-size: 1rem;
+}
+@media (max-width: 1100px) {
+  .quick-access-grid {
+    gap: 18px;
+  }
+  .quick-card {
+    min-width: 160px;
+    max-width: 220px;
+    padding: 20px 12px;
+  }
+}
+@media (max-width: 700px) {
+  .quick-access-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .quick-card {
+    width: 90%;
+    min-width: unset;
+    max-width: unset;
+    padding: 16px 8px;
+  }
+}
+
+.courses-section {
+    width: 100%;
+}
+.courses-section h2 {
+    color: #222;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    text-align: left;
+}
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+@media (max-width: 700px) {
+    .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+.course-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 28px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 180px;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+.course-card-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.15rem;
+    color: #222;
+}
+.course-desc {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 18px;
+}
+.details-button {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 18px;
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+.details-button:hover {
+    background: #444;
+}
+
+.back-button {
+    background: #bdbdbd;
+    color: #222;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 18px;
+    margin-top: 18px;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.back-button:hover {
+    background: #9e9e9e;
+    color: #111;
+}
+
+.no-courses-message {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin: 20px 0;
+}
+
+.no-courses-message p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.add-course-button {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.add-course-button:hover {
+    background: #444;
+}

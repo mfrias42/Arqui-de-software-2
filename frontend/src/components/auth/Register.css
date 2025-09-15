@@ -1,0 +1,110 @@
+/* Elimino el selector global body para evitar conflictos de layout y fondo */
+
+.register-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.register-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+    padding: 48px 40px 36px 40px;
+    min-width: 350px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #222;
+    text-align: center;
+}
+
+.register-subtitle {
+    font-size: 1.25rem;
+    color: #444;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.register-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-bottom: 24px;
+}
+
+.input-field {
+    padding: 16px 18px;
+    font-size: 1.15rem;
+    border: 1.5px solid #d1d1d1;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    color: #222;
+    background: #fafbfc;
+}
+.input-field:focus {
+    border-color: #222;
+    box-shadow: 0 0 8px rgba(34,34,34,0.08);
+    outline: none;
+}
+
+.register-button {
+    padding: 15px 0;
+    font-size: 1.15rem;
+    color: #fff;
+    background: #222;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 0;
+    transition: background 0.2s;
+    width: 100%;
+}
+.register-button:hover {
+    background: #444;
+}
+
+.register-login-link {
+    margin-top: 18px;
+    font-size: 1.05rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.login-link-btn {
+    background: none;
+    border: none;
+    color: #222;
+    font-weight: 500;
+    font-size: 1.05rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0 2px;
+    transition: color 0.2s;
+}
+.login-link-btn:hover {
+    color: #888;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #cc0000;
+    font-size: 15px;
+    margin-top: 18px;
+    text-align: center;
+}

@@ -1,0 +1,186 @@
+version: '3.8'
+
+services:
+
+  # Servicio de NGINX
+  nginx:
+    image: nginx:latest
+    container_name: nginx-container
+    ports:
+      - "8085:8085"  
+    volumes:
+      - ./inscriptions-api/nginx/nginx.conf:/etc/nginx/nginx.conf  # Montamos el archivo de configuración de NGINX
+    depends_on:
+      - inscriptions-api1
+      - inscriptions-api2
+    networks:
+      - netapp
+
+  # Servicio de la aplicación de cursos
+  courses-api:
+    build:
+      context: ./courses-api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGODB_URI=mongodb://root:root@mongodb:27017
+      - RABBITMQ_URI=amqp://root:root@rabbitmq:5672/
+    depends_on:
+      - mongodb
+      - rabbitmq
+    networks:
+      - netapp
+
+  # Servicio de la aplicación de inscripciones
+  inscriptions-api1:
+    image: inscriptions-api:latest
+    container_name: inscriptions-api1-container
+    build:
+      context: ./inscriptions-api
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - USERS_API_URL=http://users-api:8083
+      - COURSES_API_URL=http://courses-api:8080
+    depends_on:
+      - mysql
+      - courses-api
+    networks:
+      - netapp
+
+  inscriptions-api2:
+    image: inscriptions-api:latest
+    container_name: inscriptions-api2-container
+    build:
+      context: ./inscriptions-api
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8081"
+    environment:
+      - USERS_API_URL=http://users-api:8083
+      - COURSES_API_URL=http://courses-api:8080
+    depends_on:
+      - mysql
+      - courses-api
+    networks:
+      - netapp
+
+
+  # Servicio de la aplicación de búsqueda
+  search-api:
+    build:
+      context: ./search-api
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - solr
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - SOLR_HOST=solr
+      - SOLR_PORT=8983
+    networks:
+      - netapp
+
+  # Servicio de la API de usuarios
+  users-api:  
+    build:  
+      context: ./users-api
+      dockerfile: Dockerfile  
+    ports:  
+      - "8083:8083"   
+    depends_on:  
+      - mysql
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    privileged: true
+    networks:
+      - netapp
+
+  mysql:
+    image: mysql:8
+    container_name: mysql-u
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    networks:
+      - netapp
+
+  # Servicio de Memcached //////////////////////
+  memcached:
+    image: memcached:latest
+    container_name: memcached-container
+    ports:
+      - "11211:11211"
+    networks:
+      - netapp
+
+  # Servicio de MongoDB
+  mongodb:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - netapp
+
+  # Servicio de SolR
+  solr:
+    image: solr:8.11.1
+    ports:
+      - "8983:8983"      # Expone el puerto 8983 para acceder a la interfaz de SolR
+    volumes:
+      - ./search-api/solr-config:/opt/solr/server/solr/mycores/courses/conf  # Monta la configuración
+    
+    command: solr-create -c courses
+    networks:
+      - netapp
+
+  # Servicio de RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    ports:
+      - "5672:5672"      # Puerto para conexiones de aplicación
+      - "15672:15672"    # Puerto para la interfaz de gestión de RabbitMQ
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+    networks:
+      - netapp
+
+  # Servicio del frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - users-api
+      - courses-api
+    networks:
+      - netapp
+
+volumes:
+  mongodb_data:
+  mysql_data:
+
+networks:
+  netapp: 
+    driver: bridge

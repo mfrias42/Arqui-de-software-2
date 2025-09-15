@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #ededed;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.my-courses-outer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+}
+
+.my-courses-header {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 36px auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.my-courses-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-left: 24px;
+}
+
+.my-courses-main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    width: 100%;
+    justify-items: center;
+}
+@media (max-width: 700px) {
+    .my-courses-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+.my-course-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 28px 24px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 180px;
+    width: 100%;
+    max-width: 340px;
+}
+.my-course-card-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.15rem;
+    color: #222;
+}
+.my-course-desc {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 18px;
+}
+.my-course-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.details-button, .upload-button, .comment-button {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1 1 0;
+    min-width: 120px;
+    min-height: 48px;
+    height: 48px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.details-button:hover, .upload-button:hover, .comment-button:hover {
+    background: #444;
+    color: #fff;
+}
+
+.course-image {
+    max-width: 80px;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 20px 0 0;
+    display: none; /* Oculto por si queda alguna imagen */
+}
